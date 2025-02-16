@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Email Storage App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Email Storage App</h1>
+    <form action="/save-email" method="POST">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit">Save Email</button>
+    </form>
+    <button id="show-emails">Show Emails</button>
+    <div id="emails"></div>
+
+    <script>
+        const showEmailsBtn = document.getElementById('show-emails');
+        const emailsDiv = document.getElementById('emails');
+
+        showEmailsBtn.addEventListener('click', async () => {
+            const response = await fetch('/get-emails');
+            const data = await response.json();
+            const emails = data.emails.join('<br>');
+            emailsDiv.innerHTML = `<h2>All Emails:</h2>${emails}`;
+        });
+    </script>
+</body>
+
+</html>
