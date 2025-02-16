@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Email App</title>
+</head>
+
+<body>
+    <h1>Email App</h1>
+    <form action="/add-email" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <hr>
+
+    <h2>Stored Emails:</h2>
+    <ul id="emails"></ul>
+
+    <script>
+        fetch('/emails')
+            .then(response => response.json())
+            .then(emails => {
+                const emailsList = document.getElementById('emails');
+                emails.forEach(email => {
+                    const li = document.createElement('li');
+                    li.textContent = email.email;
+                    emailsList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching emails:', error));
+    </script>
+</body>
+
+</html>
